@@ -28,21 +28,28 @@ python manage.py runserver
 
 Open http://localhost:8000
 
-## Deploy to Vercel
+## Deploy to Render
 
-This project includes `vercel.json` and `build_files.sh` for Vercel deployment.
+This project includes `build.sh` for Render deployment.
 
 1. Push the latest code to GitHub.
-2. Go to Vercel and import the GitHub repository.
-3. Add these environment variables:
+2. Go to Render and create a new **Web Service** from the GitHub repository.
+3. Use these commands:
+
+```text
+Build Command: pip install -r requirements.txt && ./build.sh
+Start Command: gunicorn django_learn.wsgi:application
+```
+
+4. Add these environment variables:
 
 ```text
 DJANGO_DEBUG=0
 DJANGO_SECRET_KEY=replace-with-a-long-random-secret
-DJANGO_ALLOWED_HOSTS=.vercel.app,your-custom-domain.com
+DJANGO_ALLOWED_HOSTS=.onrender.com,your-custom-domain.com
 ```
 
-4. Deploy.
+5. Deploy.
 
 The build step runs:
 
@@ -51,7 +58,7 @@ python3 manage.py collectstatic --noinput
 python3 manage.py migrate --noinput
 ```
 
-This creates the static files and the SQLite database with seeded learning content during deployment.
+This creates the static files and the SQLite database with seeded learning content during deployment. For a larger production app, use Render PostgreSQL instead of SQLite.
 
 ## Structure
 
