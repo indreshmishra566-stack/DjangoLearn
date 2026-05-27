@@ -28,6 +28,31 @@ python manage.py runserver
 
 Open http://localhost:8000
 
+## Deploy to Vercel
+
+This project includes `vercel.json` and `build_files.sh` for Vercel deployment.
+
+1. Push the latest code to GitHub.
+2. Go to Vercel and import the GitHub repository.
+3. Add these environment variables:
+
+```text
+DJANGO_DEBUG=0
+DJANGO_SECRET_KEY=replace-with-a-long-random-secret
+DJANGO_ALLOWED_HOSTS=.vercel.app,your-custom-domain.com
+```
+
+4. Deploy.
+
+The build step runs:
+
+```bash
+python3 manage.py collectstatic --noinput
+python3 manage.py migrate --noinput
+```
+
+This creates the static files and the SQLite database with seeded learning content during deployment.
+
 ## Structure
 
 ```
