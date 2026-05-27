@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Django Learn{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body data-slug="{% block body_slug %}{% endblock %}">
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon">🐍</span>
+      <div>
+        <div class="brand-name">Django Learn</div>
+        <div class="brand-sub">Complete Python Web Guide</div>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <div class="progress-row">
+        <span class="progress-label">Progress</span>
+        <span class="progress-count">0/{{ chapters|length }}</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" style="width:0%"></div>
+      </div>
+      <div class="progress-pct">0% complete</div>
+    </div>
+
+    <div class="search-wrap">
+      <input id="sidebarSearch" class="search-input" placeholder="🔍 Search topics..." />
+    </div>
+
+    <nav class="chapter-nav">
+      {% for ch in chapters %}
+        <a href="{% url 'learn:chapter' ch.slug %}"
+           class="chapter-link {% if ch.slug == current_slug %}active{% endif %}"
+           style="--ch-color: {{ ch.color }}"
+           data-slug="{{ ch.slug }}">
+          <span class="ch-num">{{ forloop.counter|stringformat:"02d" }}</span>
+          <span class="ch-icon">{{ ch.icon }}</span>
+          <span class="ch-title">{{ ch.title }}</span>
+          <span class="ch-done" style="display:none">✓</span>
+        </a>
+      {% endfor %}
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-area">
+    <header class="topbar">
+      <button class="toggle-btn" id="toggleBtn">☰</button>
+      <div class="topbar-info">
+        {% block topbar_content %}{% endblock %}
+      </div>
+      <div class="topbar-counter">{% block topbar_counter %}{% endblock %}</div>
+    </header>
+
+    <div class="content-scroll">
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+
+</div>
+
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
