@@ -1,11 +1,48 @@
 // Sidebar toggle
 const sidebar = document.getElementById('sidebar');
 const toggleBtn = document.getElementById('toggleBtn');
+const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+const mobileQuery = window.matchMedia('(max-width: 768px)');
+
+function isMobileNav() {
+  return mobileQuery.matches;
+}
+
+function setMobileMenu(open) {
+  if (!sidebar) return;
+  sidebar.classList.toggle('open', open);
+  document.body.classList.toggle('nav-open', open);
+  if (toggleBtn) {
+    toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+}
+
+function closeMobileMenu() {
+  setMobileMenu(false);
+}
+
 if (toggleBtn && sidebar) {
+  toggleBtn.setAttribute('aria-controls', 'sidebar');
+  toggleBtn.setAttribute('aria-expanded', 'false');
   toggleBtn.addEventListener('click', () => {
-    sidebar.classList.toggle('closed');
+    if (isMobileNav()) {
+      setMobileMenu(!sidebar.classList.contains('open'));
+    } else {
+      sidebar.classList.toggle('closed');
+    }
   });
 }
+
+if (sidebarBackdrop) {
+  sidebarBackdrop.addEventListener('click', closeMobileMenu);
+}
+
+mobileQuery.addEventListener('change', () => {
+  closeMobileMenu();
+  if (sidebar && isMobileNav()) {
+    sidebar.classList.remove('closed');
+  }
+});
 
 // Copy code buttons
 document.querySelectorAll('.copy-btn').forEach(btn => {
@@ -54,6 +91,10 @@ if (searchInput) {
     });
   });
 }
+
+document.querySelectorAll('.chapter-link').forEach(link => {
+  link.addEventListener('click', closeMobileMenu);
+});
 
 // Track completed chapters in localStorage
 const completeBtn = document.getElementById('completeBtn');
