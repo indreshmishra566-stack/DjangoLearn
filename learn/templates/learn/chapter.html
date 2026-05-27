@@ -111,5 +111,29 @@
     {% endif %}
   </div>
 
+  <section class="support-card" aria-label="Support this course">
+    <div class="support-copy">
+      <span class="support-kicker">Hey!</span>
+      <h2 class="support-title">Want to support this course?</h2>
+      <p class="support-text">
+        If Django Learn helped you, you can scan the UPI QR and pay any amount.
+      </p>
+    </div>
+    <div class="support-qr-card">
+      <img
+        class="support-qr-img"
+        src="{% static 'img/support-qr.png' %}"
+        alt="UPI QR code for Indresh Mishra"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
+      />
+      <div class="support-qr-placeholder">
+        <span>UPI QR</span>
+        <small>Add image at static/img/support-qr.png</small>
+      </div>
+      <div class="support-name">Indresh Mishra</div>
+      <div class="support-note">Scan to pay with any UPI app</div>
+    </div>
+  </section>
+
 </div>
 {% endblock %}
