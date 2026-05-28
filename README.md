@@ -19,7 +19,7 @@ The site includes theory, history, code examples, command references, admin-mana
 ## Quick Start
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/indreshmishra566-stack/DjangoLearn.git
 cd django-learn
 chmod +x setup.sh && ./setup.sh
 source venv/bin/activate
@@ -135,7 +135,7 @@ django-learn-site/
 
 ## Adding Content
 
-Use the admin panel at `/admin/` — create a superuser first:
+Use the admin panel at  `/admin/` — to create a superuser :
 
 ```bash
 python manage.py createsuperuser
